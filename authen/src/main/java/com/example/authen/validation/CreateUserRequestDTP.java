@@ -1,4 +1,5 @@
 package com.example.authen.validation;
+import com.example.authen.model.UsersModel;
 import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 
@@ -18,14 +19,17 @@ public record CreateUserRequestDTP (
         @Size(min = 1, max = 100, message = "O tamanho do username deve estar entre 1 e 100 caracteres")
         String senha,
 
-        @Positive(message = "O numero deve ser positivo.")
-        @Size(max = 1, message = "Permitido 1 caracter")
-        int login_attempts,
+        @Size(max = 8, message = "O tamanho deve estar entre 1 e 7 caracteres")
+        @Pattern(regexp = "ativo|pendente|inativo", message = "O status da conta deve ser 'ativo', 'pendente' ou 'inativo'")
+        String account_status,
 
-        @NotBlank(message = "O status da conta não pode ser em branco")
-        @Pattern(regexp = "ATIVO|PENDENTE|INATIVO", message = "O status da conta deve ser 'ATIVO', 'INATIVO' ou 'PENDENTE'")
-        String account_status) {
+        @Size(max = 13, message = "O tamanho deve estar entre 1 e 13 caracteres")
+        @Pattern(regexp = "usuario|moderador|administrador", message = "O status da conta deve ser 'usuario', 'moderador' ou 'administrador'")
+        String permission,
 
+        @Size(max = 9, message = "O tamanho deve estar entre 1 e 9 caracteres")
+        @Pattern(regexp = "mandarim|espanhol|ingles|portugues|arabe", message = "A linguagem da conta deve ser 'mandarim', 'espanhol', 'ingles', 'portugues' ou 'arabe'")
+        String language) {
 
     }
 
