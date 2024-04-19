@@ -51,6 +51,7 @@ public class UsersModel {
         this.account_status = AccountStatus.ATIVO;
     }
 
+
     public enum AccountStatus {
         ATIVO,
         PENDENTE,

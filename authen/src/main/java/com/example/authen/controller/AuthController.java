@@ -19,14 +19,11 @@ public class AuthController {
     public ResponseEntity<String> CreateUser (@Valid @RequestBody CreateUserRequestDTP data){
 
         try {
-
             UsersModel userData = new UsersModel(data);
             repository.save(userData);
-
             return ResponseEntity.status(HttpStatus.CREATED).body("Usuario criado com sucesso");
 
         } catch (Exception e) {
-
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao criar usuario");
 
         }
