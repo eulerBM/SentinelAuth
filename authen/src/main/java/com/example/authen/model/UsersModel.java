@@ -65,7 +65,6 @@ public class UsersModel {
         this.language = Language.portugues;
     }
 
-
     public enum AccountStatus {
         ativo,
         pendente,
