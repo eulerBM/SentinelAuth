@@ -1,11 +1,9 @@
 package com.example.authen.model;
+import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 
@@ -26,6 +24,7 @@ public class UsersModel {
     @Column(length = 150, unique = true, nullable = false)
     private String email;
 
+    @Setter
     @Column(length = 150, nullable = false)
     private String senha;
 
@@ -35,6 +34,7 @@ public class UsersModel {
     @Column(length = 1)
     private int login_attempts;
 
+    @Setter
     @Column(length = 50)
     private LocalDateTime last_access;
 
