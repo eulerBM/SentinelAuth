@@ -1,7 +1,6 @@
 package com.example.authen.validation;
-import com.example.authen.model.UsersModel;
 import jakarta.validation.constraints.*;
-import java.time.LocalDateTime;
+
 
 
 public record CreateUserRequestDTP (
@@ -28,7 +27,7 @@ public record CreateUserRequestDTP (
         String permission,
 
         @Size(max = 9, message = "O tamanho deve estar entre 1 e 9 caracteres")
-        @Pattern(regexp = "mandarim|espanhol|ingles|portugues|arabe", message = "A linguagem da conta deve ser 'mandarim', 'espanhol', 'ingles', 'portugues' ou 'arabe'")
+        @Pattern(regexp = "mandarim|espanhol|ingles|arabe|portugues", message = "A linguagem da conta deve ser 'mandarim', 'espanhol', 'ingles', 'portugues' ou 'arabe'")
         String language) {
 
     }

@@ -3,7 +3,6 @@ import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 
@@ -31,6 +30,7 @@ public class UsersModel {
     @Column(length = 50, nullable = false)
     private LocalDateTime create_account;
 
+    @Setter
     @Column(length = 1)
     private int login_attempts;
 

@@ -5,12 +5,13 @@ import com.example.authen.model.UsersModel;
 import com.example.authen.repositorys.UsersRepository;
 import com.example.authen.validation.LoginUserRequestDTP;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.HandlerMapping;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -24,6 +25,9 @@ public class AuthController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Qualifier("resourceHandlerMapping")
+    @Autowired
+    private HandlerMapping resourceHandlerMapping;
 
     @PostMapping("/create")
     public ResponseEntity<String> CreateUser (@Valid @RequestBody CreateUserRequestDTP data){
@@ -54,6 +58,14 @@ public class AuthController {
 
         } else {
 
+            UsersModel getUserForAttemp = emailUser.get();
+            int getAttemps = getUserForAttemp.getLogin_attempts();
+
+            if (getAttemps >= 5) {
+
+                return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body("Muitas tentativas");
+
+            }
             UsersModel user = emailUser.get();
             String hashedPassword = user.getSenha();
 
@@ -67,6 +79,12 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.OK).body("Usuario logado");
 
             } else {
+
+                UsersModel getUser = emailUser.get();
+
+                getUser.setLogin_attempts(getUser.getLogin_attempts() + 1);
+
+                repository.save(getUser);
 
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
 
@@ -117,5 +135,21 @@ public class AuthController {
 
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> DeleteUser(@PathVariable Long id){
+        Optional<UsersModel> findUserId = repository.findById(id);
+
+        if (findUserId.isEmpty()){
+
+            return ResponseEntity.notFound().build();
+
+        }
+        else {
+
+            repository.deleteById(id);
+
+            return ResponseEntity.noContent().build();
+        }
+    }
 }
 
