@@ -5,7 +5,6 @@ import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-
 @Table(name = "users")
 @Entity(name = "users")
 @Getter
@@ -30,6 +29,9 @@ public class UsersModel {
     @Column(length = 50, nullable = false)
     private LocalDateTime create_account;
 
+    @OneToOne(mappedBy = "user")
+    private StatusAccount statusAccount;
+
     @Setter
     @Column(length = 1)
     private int login_attempts;
@@ -37,10 +39,6 @@ public class UsersModel {
     @Setter
     @Column(length = 50)
     private LocalDateTime last_access;
-
-    @Column(length = 8, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private AccountStatus account_status;
 
     @Column(length = 13, nullable = false)
     @Enumerated(EnumType.STRING)
@@ -60,9 +58,9 @@ public class UsersModel {
         this.create_account = LocalDateTime.now();
         this.login_attempts = 0;
         this.last_access = null;
-        this.account_status = AccountStatus.ativo;
         this.permission = Permission.usuario;
         this.language = Language.portugues;
+
     }
 
     public enum AccountStatus {

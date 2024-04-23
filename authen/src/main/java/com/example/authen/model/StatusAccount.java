@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -11,30 +12,26 @@ import java.time.LocalDateTime;
 @Entity(name = "StatusAccount")
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
 @EqualsAndHashCode(of = "id")
 public class StatusAccount {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @OneToOne
+    @JoinColumn(name = "users_id")
+    private UsersModel user;
+
+    @Column(length = 50)
+    private String accountStatus;
 
     @Column(length = 50)
     private LocalDateTime time_banned;
 
-    @Column(length = 50)
-    private AccountStatus accountStatus;
-
-    public StatusAccount (){
-        this.time_banned = null;
-        this.accountStatus = AccountStatus.ativo;
-
-    }
-
-    public enum AccountStatus {
-        ativo,
-        pendente,
-        inativo
-    }
-    
+    @Column(length = 300)
+    private String reason;
     
 }
 
