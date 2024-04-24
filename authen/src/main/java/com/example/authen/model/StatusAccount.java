@@ -1,28 +1,22 @@
 package com.example.authen.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Table(name = "StatusAccount")
-@Entity(name = "StatusAccount")
+@Entity
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @EqualsAndHashCode(of = "id")
 public class StatusAccount {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @OneToOne
-    @JoinColumn(name = "users_id")
-    private UsersModel user;
 
     @Column(length = 50)
     private String accountStatus;

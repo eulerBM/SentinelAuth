@@ -1,5 +1,7 @@
 package com.example.authen.model;
 import lombok.*;
+import org.apache.catalina.User;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 @Entity(name = "users")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -29,9 +32,6 @@ public class UsersModel {
     @Column(length = 50, nullable = false)
     private LocalDateTime create_account;
 
-    @OneToOne(mappedBy = "user")
-    private StatusAccount statusAccount;
-
     @Setter
     @Column(length = 1)
     private int login_attempts;
@@ -48,6 +48,11 @@ public class UsersModel {
     @Enumerated(EnumType.STRING)
     private Language language;
 
+    @Setter
+    @Getter
+    @OneToOne(cascade = CascadeType.ALL)
+    private StatusAccount statusAccount;
+
     public UsersModel(CreateUserRequestDTP data){
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -61,6 +66,12 @@ public class UsersModel {
         this.permission = Permission.usuario;
         this.language = Language.portugues;
 
+        StatusAccount statusAccount = new StatusAccount();
+        statusAccount.setAccountStatus("ativo");
+        statusAccount.setTime_banned(null);
+        statusAccount.setReason(null);
+
+        this.statusAccount = statusAccount;
     }
 
     public enum AccountStatus {

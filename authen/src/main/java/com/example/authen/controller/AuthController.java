@@ -5,6 +5,8 @@ import com.example.authen.model.UsersModel;
 import com.example.authen.repositorys.UsersRepository;
 import com.example.authen.validation.LoginUserRequestDTP;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,23 @@ public class AuthController {
     @Qualifier("resourceHandlerMapping")
     @Autowired
     private HandlerMapping resourceHandlerMapping;
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Optional<UsersModel>> InfosUser (@PathVariable @Min(1) Long id){
+
+        if (id <= 0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Optional<UsersModel> user = repository.findById(id);
+
+        if (user.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        }
+    }
 
     @PostMapping("/create")
     public ResponseEntity<String> CreateUser (@Valid @RequestBody CreateUserRequestDTP data){
