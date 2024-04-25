@@ -67,17 +67,11 @@ public class UsersModel {
         this.language = Language.portugues;
 
         StatusAccount statusAccount = new StatusAccount();
-        statusAccount.setAccountStatus("ativo");
+        statusAccount.setAccountStatus(StatusAccount.ChoiceStatus.valueOf("ativo"));
         statusAccount.setTime_banned(null);
         statusAccount.setReason(null);
 
         this.statusAccount = statusAccount;
-    }
-
-    public enum AccountStatus {
-        ativo,
-        pendente,
-        inativo
     }
 
     public enum Permission {

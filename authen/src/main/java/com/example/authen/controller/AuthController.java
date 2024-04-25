@@ -1,12 +1,14 @@
 package com.example.authen.controller;
-import com.example.authen.validation.ChancePassRequestDTP;
-import com.example.authen.validation.CreateUserRequestDTP;
+
+import com.example.authen.model.StatusAccount;
 import com.example.authen.model.UsersModel;
 import com.example.authen.repositorys.UsersRepository;
+import com.example.authen.service.LoginUser;
+import com.example.authen.validation.BannedUserRequestDTP;
+import com.example.authen.validation.CreateUserRequestDTP;
 import com.example.authen.validation.LoginUserRequestDTP;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -27,29 +29,32 @@ public class AuthController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
     @Qualifier("resourceHandlerMapping")
     @Autowired
     private HandlerMapping resourceHandlerMapping;
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Optional<UsersModel>> InfosUser (@PathVariable @Min(1) Long id){
+    @Autowired
+    private LoginUser loginService;
 
-        if (id <= 0){
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Optional<UsersModel>> InfosUser(@PathVariable @Min(1) Long id) {
+
+        if (id <= 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         Optional<UsersModel> user = repository.findById(id);
 
-        if (user.isEmpty()){
+        if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        else {
+        } else {
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> CreateUser (@Valid @RequestBody CreateUserRequestDTP data){
+    public ResponseEntity<String> CreateUser(@Valid @RequestBody CreateUserRequestDTP data) {
 
         try {
 
@@ -68,87 +73,82 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> LoginUser (@Valid @RequestBody LoginUserRequestDTP data){
+    public ResponseEntity<String> LoginUser(@Valid @RequestBody LoginUserRequestDTP data) {
+
         Optional<UsersModel> emailUser = repository.findByEmail(data.email());
 
-        if (emailUser.isEmpty()){
+        if (emailUser.isEmpty()) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
 
-        } else {
+        }
 
-            UsersModel getUserForAttemp = emailUser.get();
-            int getAttemps = getUserForAttemp.getLogin_attempts();
+        UsersModel getUserForAttemp = emailUser.get();
+        int getAttemps = getUserForAttemp.getLogin_attempts();
 
-            if (getAttemps >= 5) {
+        boolean userBannedOrSus = loginService.UserBanned(getUserForAttemp);
 
-                return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body("Muitas tentativas");
+        if (userBannedOrSus) {
 
-            }
-            UsersModel user = emailUser.get();
-            String hashedPassword = user.getSenha();
+            String msg = String.format("Essa conta está sobe restrição !");
 
-            boolean passwordMatches = passwordEncoder.matches(data.getSenha(), hashedPassword);
-
-            if (passwordMatches) {
-
-                user.setLast_access(LocalDateTime.now());
-                repository.save(user);
-
-                return ResponseEntity.status(HttpStatus.OK).body("Usuario logado");
-
-            } else {
-
-                UsersModel getUser = emailUser.get();
-
-                getUser.setLogin_attempts(getUser.getLogin_attempts() + 1);
-
-                repository.save(getUser);
-
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
-
-            }
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(msg);
 
         }
 
-    }
+        if (getAttemps >= 5) {
 
-    @PostMapping("/change-password")
-    public ResponseEntity<String> ChancePassword(@Valid @RequestBody ChancePassRequestDTP data){
-
-        Optional<UsersModel> emailUser = repository.findByEmail(data.getEmail());
-
-        if (emailUser.isEmpty()){
-
-            return ResponseEntity.status((HttpStatus.NOT_FOUND)).body("E-mail não encontrado!");
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body("Muitas tentativas");
 
         }
 
         UsersModel user = emailUser.get();
         String hashedPassword = user.getSenha();
-        boolean passwordMatches = passwordEncoder.matches(data.getSenhaOld(), hashedPassword);
 
-        if (!passwordMatches){
+        boolean passwordMatches = passwordEncoder.matches(data.getSenha(), hashedPassword);
 
-            return ResponseEntity.status((HttpStatus.NOT_FOUND)).body("Senha antiga e a informada são diferentes");
+        if (passwordMatches) {
+
+            user.setLast_access(LocalDateTime.now());
+            repository.save(user);
+
+            return ResponseEntity.status(HttpStatus.OK).body("Usuario logado");
 
         }
 
-        if (!data.getSenhaNew1().equals(data.getSenhaNew2())){
+        UsersModel getUser = emailUser.get();
 
-            return ResponseEntity.status((HttpStatus.NOT_FOUND)).body("Senhas novas diferentes!");
+        getUser.setLogin_attempts(getUser.getLogin_attempts() + 1);
 
-        }else {
+        repository.save(getUser);
 
-            UsersModel userIns = emailUser.get();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
 
-            String newPasswordForDb = passwordEncoder.encode(data.getSenhaNew1());
+    }
 
-            userIns.setSenha(newPasswordForDb);
+    @PutMapping("/banned")
+    public ResponseEntity BannedUser(@RequestBody BannedUserRequestDTP bannedUserRequestDTP){
 
-            repository.save(userIns);
+        Optional<UsersModel> user = repository.findByUsername(bannedUserRequestDTP.username());
 
-            return ResponseEntity.status((HttpStatus.ACCEPTED)).body("Senha atualizada com sucesso!");
+        if (user.isEmpty()){
+
+            return ResponseEntity.notFound().build();
+
+        } else {
+
+            UsersModel userModel = user.get();
+            StatusAccount userStatus = userModel.getStatusAccount();
+
+            userStatus.setAccountStatus(StatusAccount.ChoiceStatus.valueOf(bannedUserRequestDTP.accountStatus()));
+            userStatus.setTime_banned(LocalDateTime.now());
+            userStatus.setReason(bannedUserRequestDTP.reason());
+
+            repository.save(userModel);
+
+            String msg = String.format("O usuario %s foi %s ", bannedUserRequestDTP.username(), bannedUserRequestDTP.accountStatus());
+
+            return ResponseEntity.status(HttpStatus.OK).body(msg);
 
         }
 
@@ -156,6 +156,7 @@ public class AuthController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> DeleteUser(@PathVariable Long id){
+
         Optional<UsersModel> findUserId = repository.findById(id);
 
         if (findUserId.isEmpty()){
@@ -163,12 +164,15 @@ public class AuthController {
             return ResponseEntity.notFound().build();
 
         }
+
         else {
 
             repository.deleteById(id);
 
             return ResponseEntity.noContent().build();
-        }
-    }
-}
 
+        }
+
+    }
+
+}
