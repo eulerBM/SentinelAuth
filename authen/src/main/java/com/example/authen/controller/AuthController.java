@@ -127,7 +127,7 @@ public class AuthController {
     }
 
     @PutMapping("/banned")
-    public ResponseEntity BannedUser(@RequestBody BannedUserRequestDTP bannedUserRequestDTP){
+    public ResponseEntity<String> BannedUser(@RequestBody BannedUserRequestDTP bannedUserRequestDTP){
 
         Optional<UsersModel> user = repository.findByUsername(bannedUserRequestDTP.username());
 

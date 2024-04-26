@@ -2,8 +2,11 @@ package com.example.authen.controller;
 
 import com.example.authen.model.UsersModel;
 import com.example.authen.repositorys.UsersRepository;
+import com.example.authen.service.EmailSend;
 import com.example.authen.validation.ChancePassRequestDTP;
 import com.example.authen.validation.ChangeUsernameDTP;
+import com.example.authen.validation.LanguageRequestDTP;
+import com.example.authen.validation.PermissionRequestDTP;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user/change")
 public class ChangeController {
+
+    @Autowired
+    private EmailSend email;
 
     @Autowired
     private UsersRepository repository;
@@ -68,7 +74,7 @@ public class ChangeController {
     }
 
     @PostMapping("/username")
-    public ResponseEntity ChangeUsername (@RequestBody ChangeUsernameDTP changeUsernameDTP){
+    public ResponseEntity<String> ChangeUsername (@RequestBody ChangeUsernameDTP changeUsernameDTP){
 
         Optional<UsersModel> usernameAtual = repository.findByUsername(changeUsernameDTP.usernameAtual());
         Optional<UsersModel> usernameNovo = repository.findByUsername(changeUsernameDTP.usernameNovo());
@@ -95,5 +101,52 @@ public class ChangeController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario com esse username não existe");
 
         }
+
     }
+
+    @PostMapping("/permission")
+    public  ResponseEntity<String> ChangePermission(@RequestBody PermissionRequestDTP permissionRequestDTP){
+
+        Optional<UsersModel> userName = repository.findByUsername(permissionRequestDTP.username());
+
+        if (userName.isEmpty()){
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
+
+        } else {
+
+            UsersModel user = userName.get();
+
+            user.setPermission(UsersModel.Permission.valueOf(permissionRequestDTP.permission()));
+
+            repository.save(user);
+
+            return ResponseEntity.status(HttpStatus.OK).body("Permission alterada");
+        }
+
+    }
+
+    @PostMapping("/language")
+    public ResponseEntity<String> ChangeLanguage(@RequestBody LanguageRequestDTP languageRequestDTP){
+
+        Optional<UsersModel> userName = repository.findByUsername(languageRequestDTP.username());
+
+        if (userName.isEmpty()){
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
+
+        }
+        else {
+
+            UsersModel user = userName.get();
+
+            user.setLanguage(UsersModel.Language.valueOf(languageRequestDTP.language()));
+
+            repository.save(user);
+
+            return ResponseEntity.status(HttpStatus.OK).body("linguagem da conta alterada");
+
+        }
+    }
+
 }
