@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user/change")
+@RequestMapping("/user/change/v1/")
 public class ChangeController {
 
     @Autowired

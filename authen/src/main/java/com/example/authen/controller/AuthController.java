@@ -14,18 +14,25 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/v1/")
 public class AuthController {
 
     @Autowired
     private UsersRepository repository;
+
+    @Autowired
+    private JwtEncoder jwtEncoder;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -112,7 +119,19 @@ public class AuthController {
             user.setLast_access(LocalDateTime.now());
             repository.save(user);
 
-            return ResponseEntity.status(HttpStatus.OK).body("Usuario logado");
+            var now = Instant.now();
+            var expiresIn = 300L;
+
+            var claims = JwtClaimsSet.builder()
+                    .issuer("sentinelauth")
+                    .subject(user.getUsername())
+                    .issuedAt(now)
+                    .expiresAt(now.plusSeconds(expiresIn))
+                    .build();
+
+            var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+
+            return ResponseEntity.status(HttpStatus.OK).body(jwtValue);
 
         }
 
