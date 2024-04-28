@@ -1,7 +1,5 @@
-package com.example.authen.model;
+package com.example.authen.entity;
 import lombok.*;
-import org.apache.catalina.User;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;

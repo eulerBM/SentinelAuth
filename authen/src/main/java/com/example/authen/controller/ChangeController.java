@@ -1,8 +1,8 @@
 package com.example.authen.controller;
 
-import com.example.authen.model.UsersModel;
+import com.example.authen.entity.UsersModel;
 import com.example.authen.repositorys.UsersRepository;
-import com.example.authen.service.EmailSend;
+import com.example.authen.service.EmailSendService;
 import com.example.authen.validation.ChancePassRequestDTP;
 import com.example.authen.validation.ChangeUsernameDTP;
 import com.example.authen.validation.LanguageRequestDTP;
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class ChangeController {
 
     @Autowired
-    private EmailSend email;
+    private EmailSendService email;
 
     @Autowired
     private UsersRepository repository;

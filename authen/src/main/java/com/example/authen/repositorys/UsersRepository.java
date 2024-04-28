@@ -1,7 +1,6 @@
 package com.example.authen.repositorys;
 
-import com.example.authen.model.UsersModel;
-import org.springframework.data.domain.Example;
+import com.example.authen.entity.UsersModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

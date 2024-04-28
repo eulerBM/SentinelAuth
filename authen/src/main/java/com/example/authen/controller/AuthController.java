@@ -1,16 +1,17 @@
 package com.example.authen.controller;
 
-import com.example.authen.model.StatusAccount;
-import com.example.authen.model.UsersModel;
+import com.example.authen.dto.InfosUserDTO;
+import com.example.authen.entity.StatusAccount;
+import com.example.authen.entity.UsersModel;
 import com.example.authen.repositorys.UsersRepository;
-import com.example.authen.service.LoginUser;
+import com.example.authen.service.GetUserService;
+import com.example.authen.service.CreateUserService;
 import com.example.authen.validation.BannedUserRequestDTP;
 import com.example.authen.validation.CreateUserRequestDTP;
 import com.example.authen.validation.LoginUserRequestDTP;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +19,6 @@ import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.HandlerMapping;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -37,45 +37,26 @@ public class AuthController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @Qualifier("resourceHandlerMapping")
     @Autowired
-    private HandlerMapping resourceHandlerMapping;
+    private GetUserService loginService;
 
     @Autowired
-    private LoginUser loginService;
+    private CreateUserService createUserService;
+
+    @Autowired
+    private GetUserService authService;
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Optional<UsersModel>> InfosUser(@PathVariable @Min(1) Long id) {
+    public ResponseEntity<InfosUserDTO> InfosUser(@PathVariable @Min(1) Long id) {
 
-        if (id <= 0) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return authService.InfosUserService(id);
 
-        Optional<UsersModel> user = repository.findById(id);
-
-        if (user.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(user);
-        }
     }
 
     @PostMapping("/create")
     public ResponseEntity<String> CreateUser(@Valid @RequestBody CreateUserRequestDTP data) {
 
-        try {
-
-            UsersModel userData = new UsersModel(data);
-
-            repository.save(userData);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body("Usuario criado com sucesso");
-
-        } catch (Exception e) {
-
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro no servidor");
-
-        }
+        return createUserService.CreateUserService(data);
 
     }
 
