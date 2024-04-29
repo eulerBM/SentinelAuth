@@ -26,9 +26,9 @@ public class GetUserService {
 
         } else {
 
-            var usercomplete = user.get();
+            UsersModel getUser = user.get();
 
-            var InfosUserDTOResponse = new InfosUserDTO(usercomplete);
+            InfosUserDTO InfosUserDTOResponse = new InfosUserDTO(getUser);
 
             return ResponseEntity.status(HttpStatus.OK).body(InfosUserDTOResponse);
 
