@@ -26,7 +26,7 @@ public class CreateUserService {
 
         } catch (Exception e) {
 
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro no servidor");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
         }
 

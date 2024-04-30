@@ -1,11 +1,8 @@
 package com.example.authen.dto;
 
-import com.example.authen.entity.StatusAccount;
 import com.example.authen.entity.UsersModel;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -17,6 +14,8 @@ public class BannedUserDTO {
 
     private String email;
 
+    private String message;
+
     public BannedUserDTO(UsersModel entity) {
 
         this.id = entity.getId();
@@ -24,6 +23,8 @@ public class BannedUserDTO {
         this.username = entity.getUsername();
 
         this.email = entity.getEmail();
+
+        this.message = String.format("Usuario %s com sucesso", entity.getStatusAccount().getAccountStatus());
 
     }
 }

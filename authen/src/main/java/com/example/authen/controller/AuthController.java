@@ -1,5 +1,6 @@
 package com.example.authen.controller;
 
+import com.example.authen.dto.BannedUserDTO;
 import com.example.authen.dto.InfosUserDTO;
 import com.example.authen.entity.StatusAccount;
 import com.example.authen.entity.UsersModel;
@@ -64,7 +65,7 @@ public class AuthController {
     }
 
     @PutMapping("/banned")
-    public ResponseEntity<String> BannedUser(@Valid @RequestBody BannedUserRequestDTP data){
+    public ResponseEntity<BannedUserDTO> BannedUser(@Valid @RequestBody BannedUserRequestDTP data){
 
         return bannedUserService.BannedUserService(data);
 
@@ -74,6 +75,7 @@ public class AuthController {
     public ResponseEntity<Void> DeleteUser(@PathVariable @Min(1) Long id) {
 
         return deleteUserService.DeleteUserService(id);
+
     }
 
 }

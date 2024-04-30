@@ -1,5 +1,6 @@
 package com.example.authen.service;
 
+import com.example.authen.dto.BannedUserDTO;
 import com.example.authen.entity.StatusAccount;
 import com.example.authen.entity.UsersModel;
 import com.example.authen.repositorys.UsersRepository;
@@ -19,7 +20,7 @@ public class BannedUserService {
     @Autowired
     private UsersRepository repository;
 
-    public ResponseEntity<String> BannedUserService(@RequestBody BannedUserRequestDTP data){
+    public ResponseEntity<BannedUserDTO> BannedUserService(@RequestBody BannedUserRequestDTP data){
 
         Optional<UsersModel> user = repository.findByUsername(data.username());
 
@@ -38,9 +39,9 @@ public class BannedUserService {
 
             repository.save(userModel);
 
-            String msg = String.format("O usuario %s foi %s ", data.username(), data.accountStatus());
+            BannedUserDTO BannedResponseDTO = new BannedUserDTO(userModel);
 
-            return ResponseEntity.status(HttpStatus.OK).body(msg);
+            return ResponseEntity.status(HttpStatus.OK).body(BannedResponseDTO);
 
         }
 
