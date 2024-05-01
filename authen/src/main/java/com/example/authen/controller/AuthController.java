@@ -2,9 +2,6 @@ package com.example.authen.controller;
 
 import com.example.authen.dto.BannedUserDTO;
 import com.example.authen.dto.InfosUserDTO;
-import com.example.authen.entity.StatusAccount;
-import com.example.authen.entity.UsersModel;
-import com.example.authen.repositorys.UsersRepository;
 import com.example.authen.service.*;
 import com.example.authen.validation.BannedUserRequestDTP;
 import com.example.authen.validation.CreateUserRequestDTP;
@@ -12,17 +9,8 @@ import com.example.authen.validation.LoginUserRequestDTP;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user/v1/")

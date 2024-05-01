@@ -22,13 +22,14 @@ public class BannedUserService {
 
     public ResponseEntity<BannedUserDTO> BannedUserService(@RequestBody BannedUserRequestDTP data){
 
-        Optional<UsersModel> user = repository.findByUsername(data.username());
 
-        if (user.isEmpty()){
+            Optional<UsersModel> user = repository.findByUsername(data.username());
 
-            return ResponseEntity.notFound().build();
+            if (user.isEmpty()){
 
-        } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+            }
 
             UsersModel userModel = user.get();
             StatusAccount userStatus = userModel.getStatusAccount();
@@ -43,7 +44,7 @@ public class BannedUserService {
 
             return ResponseEntity.status(HttpStatus.OK).body(BannedResponseDTO);
 
-        }
+
 
     }
 }
