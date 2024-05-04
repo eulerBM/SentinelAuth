@@ -22,7 +22,6 @@ public class BannedUserService {
 
     public ResponseEntity<BannedUserDTO> BannedUserService(@RequestBody BannedUserRequestDTP data){
 
-
             Optional<UsersModel> user = repository.findByUsername(data.username());
 
             if (user.isEmpty()){
