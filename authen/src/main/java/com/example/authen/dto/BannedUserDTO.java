@@ -18,7 +18,6 @@ public class BannedUserDTO {
 
     public BannedUserDTO(UsersModel entity) {
 
-
         this.id = entity.getId();
 
         this.username = entity.getUsername();

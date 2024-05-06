@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class LoginUserDTO {
+
     private long id;
 
     private String username;
@@ -41,4 +42,5 @@ public class LoginUserDTO {
         this.statusAccount = entity.getStatusAccount();
 
     }
+
 }

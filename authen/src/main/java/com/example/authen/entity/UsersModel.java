@@ -17,12 +17,17 @@ public class UsersModel {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Getter
+    @Setter
     @Column(length = 100, unique = true, nullable = false)
     private  String username;
 
+    @Getter
+    @Setter
     @Column(length = 150, unique = true, nullable = false)
     private String email;
 
+    @Getter
     @Setter
     @Column(length = 150, nullable = false)
     private String senha;
@@ -70,12 +75,14 @@ public class UsersModel {
         statusAccount.setReason(null);
 
         this.statusAccount = statusAccount;
+
     }
 
     public enum Permission {
         usuario,
         moderador,
         administrador
+
     }
 
     public enum Language {
@@ -84,6 +91,7 @@ public class UsersModel {
         ingles,
         portugues,
         arabe
+
     }
 
 }
