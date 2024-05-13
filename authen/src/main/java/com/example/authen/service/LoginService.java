@@ -51,7 +51,7 @@ public class LoginService {
 
         if (userBannedOrSus) {
 
-            String msg = String.format("Essa conta está sobe restrição !");
+            String msg = "Essa conta está sobe restrição !";
 
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(msg);
 
@@ -63,6 +63,7 @@ public class LoginService {
 
         }
 
+        
         UsersModel user = emailUser.get();
         String hashedPassword = user.getSenha();
 
@@ -98,4 +99,5 @@ public class LoginService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
 
     }
+
 }

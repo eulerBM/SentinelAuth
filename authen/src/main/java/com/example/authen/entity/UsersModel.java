@@ -1,5 +1,7 @@
 package com.example.authen.entity;
+
 import lombok.*;
+import lombok.experimental.NonFinal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;
@@ -9,37 +11,27 @@ import java.time.LocalDateTime;
 @Entity(name = "users")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class UsersModel {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Getter
-    @Setter
     @Column(length = 100, unique = true, nullable = false)
     private  String username;
 
-    @Getter
-    @Setter
     @Column(length = 150, unique = true, nullable = false)
     private String email;
 
-    @Getter
-    @Setter
     @Column(length = 150, nullable = false)
     private String senha;
 
     @Column(length = 50, nullable = false)
     private LocalDateTime create_account;
 
-    @Setter
     @Column(length = 1)
     private int login_attempts;
 
-    @Setter
     @Column(length = 50)
     private LocalDateTime last_access;
 
@@ -51,8 +43,6 @@ public class UsersModel {
     @Enumerated(EnumType.STRING)
     private Language language;
 
-    @Setter
-    @Getter
     @OneToOne(cascade = CascadeType.ALL)
     private StatusAccount statusAccount;
 
