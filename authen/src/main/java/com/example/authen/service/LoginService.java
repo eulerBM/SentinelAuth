@@ -8,10 +8,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -34,7 +36,10 @@ public class LoginService {
     @Autowired
     private JwtEncoder jwtEncoder;
 
-    public ResponseEntity<String> LoginUserService(@Valid @RequestBody LoginUserRequestDTP data) {
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    public ResponseEntity<String> LoginUserService(@Valid @RequestBody LoginUserRequestDTP data, JwtAuthenticationToken token) {
 
         Optional<UsersModel> emailUser = repository.findByEmail(data.email());
 
@@ -63,7 +68,6 @@ public class LoginService {
 
         }
 
-        
         UsersModel user = emailUser.get();
         String hashedPassword = user.getSenha();
 
@@ -79,7 +83,7 @@ public class LoginService {
 
             var claims = JwtClaimsSet.builder()
                     .issuer("sentinelauth")
-                    .subject(user.getUsername())
+                    .subject(String.valueOf(user.getId()))
                     .issuedAt(now)
                     .expiresAt(now.plusSeconds(expiresIn))
                     .build();

@@ -1,16 +1,21 @@
 package com.example.authen.entity;
 
 import lombok.*;
-import lombok.experimental.NonFinal;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Table(name = "users")
 @Entity(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class UsersModel {
 
@@ -37,7 +42,10 @@ public class UsersModel {
 
     @Column(length = 13, nullable = false)
     @Enumerated(EnumType.STRING)
-    private Permission permission;
+    private Permisson permission;
+
+    @Column(length = 50)
+    private UserRole role;
 
     @Column(length = 9, nullable = false)
     @Enumerated(EnumType.STRING)
@@ -56,7 +64,7 @@ public class UsersModel {
         this.create_account = LocalDateTime.now();
         this.login_attempts = 0;
         this.last_access = null;
-        this.permission = Permission.usuario;
+        this.permission = Permisson.usuario;
         this.language = Language.portugues;
 
         StatusAccount statusAccount = new StatusAccount();
@@ -68,7 +76,8 @@ public class UsersModel {
 
     }
 
-    public enum Permission {
+
+    public enum Permisson {
         usuario,
         moderador,
         administrador
