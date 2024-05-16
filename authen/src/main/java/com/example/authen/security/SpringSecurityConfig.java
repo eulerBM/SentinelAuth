@@ -42,6 +42,8 @@ public class SpringSecurityConfig {
 
                         .requestMatchers(HttpMethod.POST, "/user/v1/create").permitAll()
 
+                        .requestMatchers(HttpMethod.POST, "/user/v1/create").permitAll()
+
                         .anyRequest().permitAll())
 
                 .csrf(AbstractHttpConfigurer::disable)
