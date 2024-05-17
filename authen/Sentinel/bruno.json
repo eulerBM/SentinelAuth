@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Sentinel",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

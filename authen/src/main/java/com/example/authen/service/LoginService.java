@@ -1,19 +1,18 @@
 package com.example.authen.service;
 
-import com.example.authen.dto.LoginUserDTO;
 import com.example.authen.entity.UsersModel;
 import com.example.authen.repositorys.UsersRepository;
 import com.example.authen.validation.LoginUserRequestDTP;
+import com.example.authen.validation.response.LoginResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -36,16 +35,13 @@ public class LoginService {
     @Autowired
     private JwtEncoder jwtEncoder;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    public ResponseEntity<String> LoginUserService(@Valid @RequestBody LoginUserRequestDTP data, JwtAuthenticationToken token) {
+    public ResponseEntity<LoginResponse> LoginUserService(@Valid @RequestBody LoginUserRequestDTP data) {
 
         Optional<UsersModel> emailUser = repository.findByEmail(data.email());
 
         if (emailUser.isEmpty()) {
 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
+            throw new BadCredentialsException("Usuario não existe");
 
         }
 
@@ -58,13 +54,13 @@ public class LoginService {
 
             String msg = "Essa conta está sobe restrição !";
 
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(msg);
+            throw new BadCredentialsException(msg);
 
         }
 
         if (getAttemps >= 5) {
 
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body("Muitas tentativas");
+            throw new BadCredentialsException("Muitas tentativas");
 
         }
 
@@ -86,11 +82,12 @@ public class LoginService {
                     .subject(String.valueOf(user.getId()))
                     .issuedAt(now)
                     .expiresAt(now.plusSeconds(expiresIn))
+                    .claim("roles", user.getRole().name())
                     .build();
 
             var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
-            return ResponseEntity.status(HttpStatus.OK).body(jwtValue);
+            return ResponseEntity.ok(new LoginResponse(jwtValue, expiresIn));
 
         }
 
@@ -100,7 +97,7 @@ public class LoginService {
 
         repository.save(getUser);
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
+        throw new BadCredentialsException("Usuario não existe");
 
     }
 

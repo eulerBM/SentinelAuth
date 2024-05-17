@@ -29,8 +29,6 @@ public class ChangePermissionService {
 
             UsersModel user = userName.get();
 
-            user.setPermission(UsersModel.Permission.valueOf(permissionRequestDTP.permission()));
-
             repository.save(user);
 
             return ResponseEntity.status(HttpStatus.OK).body("Permission alterada");

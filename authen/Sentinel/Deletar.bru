@@ -1,0 +1,21 @@
+meta {
+  name: Deletar
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://127.0.0.1:8080/user/v1/delete
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+    "id": 5
+  }
+}

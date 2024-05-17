@@ -1,5 +1,6 @@
 package com.example.authen.security;
 
+import com.example.authen.entity.UsersModel;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -42,7 +44,7 @@ public class SpringSecurityConfig {
 
                         .requestMatchers(HttpMethod.POST, "/user/v1/create").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/user/v1/create").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "user/v1/delete/**").hasRole(UsersModel.Role.ADMIN.name())
 
                         .anyRequest().permitAll())
 
