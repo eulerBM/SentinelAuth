@@ -1,0 +1,19 @@
+meta {
+  name: Banned
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://127.0.0.1:8080/user/v1/banned
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "euler",
+    "accountStatus": "suspenso",
+    "reason": "Racismo"
+  }
+}

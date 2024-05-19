@@ -15,6 +15,9 @@ public class StatusAccount {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(length = 6)
+    private ChoiceRole role;
+
     @Column(length = 8)
     private ChoiceStatus accountStatus;
 
@@ -29,6 +32,11 @@ public class StatusAccount {
         suspenso,
         banido,
 
+    }
+
+    public enum ChoiceRole{
+        ADMIN,
+        USER
     }
     
 }

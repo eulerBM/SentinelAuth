@@ -10,5 +10,4 @@ public class AuthenApplication {
 		SpringApplication.run(AuthenApplication.class, args);
 	}
 
-
 }

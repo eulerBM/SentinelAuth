@@ -6,7 +6,6 @@ import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Table(name = "users")
 @Entity(name = "users")
@@ -37,13 +36,6 @@ public class UsersModel {
     @Column(length = 50)
     private LocalDateTime last_access;
 
-    @Column(length = 13, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Permisson permission;
-
-    @Column(length = 50)
-    private Role role;
-
     @Column(length = 9, nullable = false)
     @Enumerated(EnumType.STRING)
     private Language language;
@@ -61,28 +53,15 @@ public class UsersModel {
         this.create_account = LocalDateTime.now();
         this.login_attempts = 0;
         this.last_access = null;
-        this.permission = Permisson.usuario;
-        this.role = Role.ADMIN;
         this.language = Language.portugues;
 
         StatusAccount statusAccount = new StatusAccount();
+        statusAccount.setRole(StatusAccount.ChoiceRole.valueOf(data.role()));
         statusAccount.setAccountStatus(StatusAccount.ChoiceStatus.valueOf("ativo"));
         statusAccount.setTime_banned(null);
         statusAccount.setReason(null);
 
         this.statusAccount = statusAccount;
-
-    }
-
-    public enum Role {
-        ADMIN,
-        USER
-    }
-
-    public enum Permisson {
-        usuario,
-        moderador,
-        administrador
 
     }
 

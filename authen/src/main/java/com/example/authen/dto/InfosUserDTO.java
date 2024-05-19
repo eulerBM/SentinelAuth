@@ -23,8 +23,6 @@ public class InfosUserDTO {
 
     private LocalDateTime last_access;
 
-    private String permission;
-
     private String language;
 
     private StatusAccount statusAccount;
@@ -37,7 +35,6 @@ public class InfosUserDTO {
         this.create_account = entity.getCreate_account();
         this.login_attempts = entity.getLogin_attempts();
         this.last_access = entity.getLast_access();
-        this.permission = String.valueOf(entity.getPermission());
         this.language = String.valueOf(entity.getLanguage());
         this.statusAccount = entity.getStatusAccount();
 

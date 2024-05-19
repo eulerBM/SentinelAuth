@@ -6,6 +6,7 @@ import com.example.authen.validation.LanguageRequestDTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -17,9 +18,9 @@ public class ChangeLanguageService {
     @Autowired
     private UsersRepository repository;
 
-    public ResponseEntity<String> ChangeLanguageService(@RequestBody LanguageRequestDTP languageRequestDTP){
+    public ResponseEntity<String> ChangeLanguageService(@RequestBody LanguageRequestDTP languageRequestDTP, JwtAuthenticationToken token){
 
-        Optional<UsersModel> userName = repository.findByUsername(languageRequestDTP.username());
+        Optional<UsersModel> userName = repository.findById(Long.valueOf(token.getName()));
 
         if (userName.isEmpty()){
 

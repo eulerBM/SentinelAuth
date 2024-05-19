@@ -16,9 +16,9 @@ public record CreateUserRequestDTP (
         @Size(min = 1, max = 100, message = "O tamanho do username deve estar entre 1 e 100 caracteres")
         String senha,
 
-        @Size(max = 13, message = "O tamanho deve estar entre 1 e 13 caracteres")
-        @Pattern(regexp = "usuario|moderador|administrador", message = "O status da conta deve ser 'usuario', 'moderador' ou 'administrador'")
-        String permission,
+        @Size(max = 5, message = "O tamanho deve estar entre 1 e 13 caracteres")
+        @Pattern(regexp = "ADMIN|USER", message = "O status da conta deve ser 'ADMIN' ou 'USER'")
+        String role,
 
         @Size(max = 9, message = "O tamanho deve estar entre 1 e 9 caracteres")
         @Pattern(regexp = "mandarim|espanhol|ingles|arabe|portugues", message = "A linguagem da conta deve ser 'mandarim', 'espanhol', 'ingles', 'portugues' ou 'arabe'")
