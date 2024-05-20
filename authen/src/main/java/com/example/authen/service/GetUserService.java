@@ -41,9 +41,13 @@ public class GetUserService {
         String status = usersModel.getStatusAccount().getAccountStatus().toString();
 
         if (status.equals("suspenso") || status.equals("banido")){
+
             return true;
+
         } else  {
+
             return false;
+
         }
 
 

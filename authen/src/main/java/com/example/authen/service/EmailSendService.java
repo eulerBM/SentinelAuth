@@ -118,7 +118,9 @@ public class EmailSendService {
             return "Email enviado";
 
         }catch (Exception e){
+
             return "Erro ao tentar enviar"+ e.getLocalizedMessage();
+
         }
     }
 }

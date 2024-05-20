@@ -7,6 +7,7 @@ import com.example.authen.validation.RoleRequestDTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,9 +19,9 @@ public class ChangeRoleService {
     @Autowired
     private UsersRepository repository;
 
-    public ResponseEntity<String> ChangeRole(@RequestBody RoleRequestDTP roleRequestDTP){
+    public ResponseEntity<String> ChangeRole(@RequestBody RoleRequestDTP roleRequestDTP, JwtAuthenticationToken token){
 
-        Optional<UsersModel> userName = repository.findByUsername(roleRequestDTP.username());
+        Optional<UsersModel> userName = repository.findById(Long.valueOf(token.getName()));
 
         if (userName.isEmpty()){
 
@@ -34,7 +35,7 @@ public class ChangeRoleService {
 
             repository.save(user);
 
-            String msg = String.format("Role do %s alterada para %s",roleRequestDTP.username(), roleRequestDTP.permission());
+            String msg = String.format("Role do %s alterada para %s", user.getUsername(), roleRequestDTP.permission());
 
             return ResponseEntity.status(HttpStatus.OK).body(msg);
         }

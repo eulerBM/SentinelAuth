@@ -22,9 +22,10 @@ public class ChangeLanguageService {
 
         Optional<UsersModel> userName = repository.findById(Long.valueOf(token.getName()));
 
+
         if (userName.isEmpty()){
 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
 
         }
         else {
@@ -35,7 +36,7 @@ public class ChangeLanguageService {
 
             repository.save(user);
 
-            return ResponseEntity.status(HttpStatus.OK).body("linguagem da conta alterada");
+            return ResponseEntity.status(HttpStatus.OK).body("OK");
 
         }
     }

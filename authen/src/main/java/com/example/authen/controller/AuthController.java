@@ -6,12 +6,11 @@ import com.example.authen.service.*;
 import com.example.authen.validation.BannedUserRequestDTP;
 import com.example.authen.validation.CreateUserRequestDTP;
 import com.example.authen.validation.LoginUserRequestDTP;
-import com.example.authen.validation.response.LoginResponse;
+import com.example.authen.response.LoginResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

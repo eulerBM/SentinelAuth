@@ -31,23 +31,23 @@ public class ChangeController {
     private ChangeLanguageService changeLanguageService;
 
     @PostMapping("/password")
-    public ResponseEntity<String> ChangePassword(@Valid @RequestBody ChancePassRequestDTP data){
+    public ResponseEntity<String> ChangePassword(@Valid @RequestBody ChancePassRequestDTP data, JwtAuthenticationToken token){
 
-        return changePasswordService.ChangePasswordService(data);
+        return changePasswordService.ChangePasswordService(data, token);
 
     }
 
     @PostMapping("/username")
-    public ResponseEntity<String> ChangeUsername (@Valid @RequestBody ChangeUsernameDTP data){
+    public ResponseEntity<String> ChangeUsername (@Valid @RequestBody ChangeUsernameDTP data, JwtAuthenticationToken token){
 
-        return usernameService.ChangeUsernameService(data);
+        return usernameService.ChangeUsernameService(data, token);
 
     }
 
     @PostMapping("/role")
-    public  ResponseEntity<String> ChangeRole(@Valid @RequestBody RoleRequestDTP data){
+    public  ResponseEntity<String> ChangeRole(@Valid @RequestBody RoleRequestDTP data, JwtAuthenticationToken token){
 
-        return changeRoleService.ChangeRole(data);
+        return changeRoleService.ChangeRole(data, token);
 
     }
 

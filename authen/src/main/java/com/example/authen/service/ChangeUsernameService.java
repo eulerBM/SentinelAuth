@@ -6,6 +6,7 @@ import com.example.authen.validation.ChangeUsernameDTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,7 +17,7 @@ public class ChangeUsernameService {
     @Autowired
     private UsersRepository repository;
 
-    public ResponseEntity<String> ChangeUsernameService (ChangeUsernameDTP data){
+    public ResponseEntity<String> ChangeUsernameService (ChangeUsernameDTP data, JwtAuthenticationToken token){
 
         Optional<UsersModel> usernameAtual = repository.findByUsername(data.usernameAtual());
         Optional<UsersModel> usernameNovo = repository.findByUsername(data.usernameNovo());
@@ -34,6 +35,13 @@ public class ChangeUsernameService {
                 user.setUsername(data.usernameNovo());
 
                 repository.save(user);
+
+
+                if ( user.getId() != Long.parseLong(token.getName())){
+
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario e ID nao são iguais");
+
+                }
 
                 return ResponseEntity.status(HttpStatus.OK).body("Username foi trocado com sucesso");
 
