@@ -25,6 +25,8 @@ public class ChangePasswordService {
 
         Optional<UsersModel> emailUser = repository.findByEmail(data.getEmail());
 
+
+
         if (emailUser.isEmpty()){
 
             return ResponseEntity.status((HttpStatus.NOT_FOUND)).body("E-mail não encontrado!");
@@ -35,7 +37,7 @@ public class ChangePasswordService {
         String hashedPassword = user.getSenha();
         boolean passwordMatches = passwordEncoder.matches(data.getSenhaOld(), hashedPassword);
 
-        if ( user.getId() != Long.parseLong(token.getName())){
+        if ( user.getId_private() != Long.parseLong(token.getName())){
 
             return ResponseEntity.status((HttpStatus.CONFLICT)).body("Usuario do token não condiz com o informado");
 

@@ -78,7 +78,7 @@ public class LoginService {
 
             var claims = JwtClaimsSet.builder()
                     .issuer("sentinelauth")
-                    .subject(String.valueOf(user.getId()))
+                    .subject(String.valueOf(user.getId_public()))
                     .issuedAt(now)
                     .expiresAt(now.plusSeconds(expiresIn))
                     .claim("scope", user.getStatusAccount().getRole().name())

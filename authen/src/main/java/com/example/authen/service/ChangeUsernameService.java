@@ -37,7 +37,7 @@ public class ChangeUsernameService {
                 repository.save(user);
 
 
-                if ( user.getId() != Long.parseLong(token.getName())){
+                if ( user.getId_private() != Long.parseLong(token.getName())){
 
                     return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario e ID nao são iguais");
 

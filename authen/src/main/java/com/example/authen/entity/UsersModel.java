@@ -1,11 +1,13 @@
 package com.example.authen.entity;
 
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Table(name = "users")
 @Entity(name = "users")
@@ -13,11 +15,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id_private")
 public class UsersModel {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long id_private;
+
+    private UUID id_public;
 
     @Column(length = 100, unique = true, nullable = false)
     private  String username;
@@ -75,4 +79,10 @@ public class UsersModel {
 
     }
 
+    @PrePersist
+    public void generateIdPublic() {
+        if (id_public == null) {
+            id_public = UUID.randomUUID();
+        }
+    }
 }

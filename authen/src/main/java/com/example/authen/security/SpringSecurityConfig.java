@@ -46,7 +46,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/user/v1/create").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "user/v1/delete/**").hasAuthority("SCOPE_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "user/v1/banned").hasAuthority("SCOPE_ADMIN")
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
 
                 .csrf(AbstractHttpConfigurer::disable)
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
