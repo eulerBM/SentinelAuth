@@ -98,7 +98,6 @@ public class EmailSendService {
             return "Erro ao tentar enviar" + e.getLocalizedMessage();
 
         }
-
     }
 
     public String ChangePermission(String destinatario){

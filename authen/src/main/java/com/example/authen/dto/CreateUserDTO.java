@@ -29,7 +29,7 @@ public class CreateUserDTO {
 
     public CreateUserDTO(UsersModel entity) {
 
-        this.id = entity.getId_private();
+        this.id = entity.getIdPrivate();
         this.username = entity.getUsername();
         this.email = entity.getEmail();
         this.create_account = entity.getCreate_account();

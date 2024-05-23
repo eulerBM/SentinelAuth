@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ChangeLanguageService {
@@ -20,7 +21,7 @@ public class ChangeLanguageService {
 
     public ResponseEntity<String> ChangeLanguageService(@RequestBody LanguageRequestDTP languageRequestDTP, JwtAuthenticationToken token){
 
-        Optional<UsersModel> userName = repository.findById(Long.valueOf(token.getName()));
+        Optional<UsersModel> userName = repository.findByIdPublic(UUID.fromString(token.getName()));
 
 
         if (userName.isEmpty()){

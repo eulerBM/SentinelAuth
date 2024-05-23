@@ -35,7 +35,6 @@ public class GetUserService {
         }
     }
 
-
     public boolean UserBanned (UsersModel usersModel){
 
         String status = usersModel.getStatusAccount().getAccountStatus().toString();
@@ -49,7 +48,5 @@ public class GetUserService {
             return false;
 
         }
-
-
     }
 }

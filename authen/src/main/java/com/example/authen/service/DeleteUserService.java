@@ -31,6 +31,5 @@ public class DeleteUserService {
             return ResponseEntity.noContent().build();
 
         }
-
     }
 }

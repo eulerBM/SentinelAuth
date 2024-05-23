@@ -42,8 +42,6 @@ public class BannedUserService {
             BannedUserDTO BannedResponseDTO = new BannedUserDTO(userModel);
 
             return ResponseEntity.status(HttpStatus.OK).body(BannedResponseDTO);
-
-
-
+            
     }
 }

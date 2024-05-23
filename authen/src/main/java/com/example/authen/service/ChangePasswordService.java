@@ -37,7 +37,7 @@ public class ChangePasswordService {
         String hashedPassword = user.getSenha();
         boolean passwordMatches = passwordEncoder.matches(data.getSenhaOld(), hashedPassword);
 
-        if ( user.getId_private() != Long.parseLong(token.getName())){
+        if ( user.getIdPrivate() != Long.parseLong(token.getName())){
 
             return ResponseEntity.status((HttpStatus.CONFLICT)).body("Usuario do token não condiz com o informado");
 

@@ -15,13 +15,13 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id_private")
+@EqualsAndHashCode(of = "idPrivate")
 public class UsersModel {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_private;
+    private long idPrivate;
 
-    private UUID id_public;
+    private UUID idPublic;
 
     @Column(length = 100, unique = true, nullable = false)
     private  String username;
@@ -81,8 +81,8 @@ public class UsersModel {
 
     @PrePersist
     public void generateIdPublic() {
-        if (id_public == null) {
-            id_public = UUID.randomUUID();
+        if (idPublic == null) {
+            idPublic = UUID.randomUUID();
         }
     }
 }

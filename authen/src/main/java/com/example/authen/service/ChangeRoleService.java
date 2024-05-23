@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ChangeRoleService {
@@ -21,7 +22,7 @@ public class ChangeRoleService {
 
     public ResponseEntity<String> ChangeRole(@RequestBody RoleRequestDTP roleRequestDTP, JwtAuthenticationToken token){
 
-        Optional<UsersModel> userName = repository.findById(Long.valueOf(token.getName()));
+        Optional<UsersModel> userName = repository.findByIdPublic(UUID.fromString(token.getName()));
 
         if (userName.isEmpty()){
 

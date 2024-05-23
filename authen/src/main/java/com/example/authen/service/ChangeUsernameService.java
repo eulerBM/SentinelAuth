@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ChangeUsernameService {
@@ -37,7 +38,7 @@ public class ChangeUsernameService {
                 repository.save(user);
 
 
-                if ( user.getId_private() != Long.parseLong(token.getName())){
+                if ( user.getIdPublic() != UUID.fromString(token.getName())){
 
                     return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario e ID nao são iguais");
 
