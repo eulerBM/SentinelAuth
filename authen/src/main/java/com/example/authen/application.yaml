@@ -1,0 +1,8 @@
+spring:
+  redis:
+    host: ${HOST:localhost}
+    port: ${PORT:6379}
+    password: ${PASSWORD:password}
+  cache:
+    type: redis
+    cache-names: user_payment_methods
