@@ -17,21 +17,29 @@ class ChangeControllerTest {
 
     @Test
     void changePassword() {
+
         assertThat(changeController).isNotNull();
+
     }
 
     @Test
     void changeUsername() {
+
         assertThat(changeController).isNotNull();
+
     }
 
     @Test
     void changeRole() {
+
         assertThat(changeController).isNotNull();
+
     }
 
     @Test
     void changeLanguage() {
+
         assertThat(changeController).isNotNull();
+
     }
 }
