@@ -2,7 +2,7 @@ package com.example.authen.service;
 
 import com.example.authen.entity.UsersModel;
 import com.example.authen.repositorys.UsersRepository;
-import com.example.authen.validation.ChancePassRequestDTP;
+import com.example.authen.validation.ChangePassRequestDTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class ChangePasswordService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public ResponseEntity<String> ChangePasswordService(ChancePassRequestDTP data, JwtAuthenticationToken token){
+    public ResponseEntity<String> ChangePasswordService(ChangePassRequestDTP data, JwtAuthenticationToken token){
 
         Optional<UsersModel> emailUser = repository.findByEmail(data.getEmail());
 

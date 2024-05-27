@@ -1,7 +1,7 @@
 package com.example.authen.controller;
 
 import com.example.authen.service.*;
-import com.example.authen.validation.ChancePassRequestDTP;
+import com.example.authen.validation.ChangePassRequestDTP;
 import com.example.authen.validation.ChangeUsernameDTP;
 import com.example.authen.validation.LanguageRequestDTP;
 import com.example.authen.validation.RoleRequestDTP;
@@ -31,7 +31,7 @@ public class ChangeController {
     private ChangeLanguageService changeLanguageService;
 
     @PostMapping("/password")
-    public ResponseEntity<String> ChangePassword(@Valid @RequestBody ChancePassRequestDTP data, JwtAuthenticationToken token){
+    public ResponseEntity<String> ChangePassword(@Valid @RequestBody ChangePassRequestDTP data, JwtAuthenticationToken token){
 
         return changePasswordService.ChangePasswordService(data, token);
 
