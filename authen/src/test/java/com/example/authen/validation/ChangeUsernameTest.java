@@ -19,4 +19,22 @@ public class ChangeUsernameTest {
         assertThat(request).isNotNull();
 
     }
+
+    @Test
+    void changeUsernameFildsExistTest() {
+
+        String usernameAtual = "teste10";
+        String usernameNovo = "teste15";
+
+        ChangeUsernameDTP request = new ChangeUsernameDTP(
+
+                usernameAtual,
+                usernameNovo
+
+        );
+
+        assertThat(request.usernameAtual()).isEqualTo(usernameAtual);
+        assertThat(request.usernameNovo()).isEqualTo(usernameNovo);
+
+    }
 }

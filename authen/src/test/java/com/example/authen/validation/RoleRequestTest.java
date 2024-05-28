@@ -18,4 +18,19 @@ public class RoleRequestTest {
         assertThat(request).isNotNull();
 
     }
+
+    @Test
+    void RoleRequestFildsExistTest() {
+
+        String permission = "USER";
+
+        RoleRequestDTP request = new RoleRequestDTP(
+
+                permission
+
+        );
+
+        assertThat(request.permission()).isEqualTo(permission);
+
+    }
 }

@@ -17,4 +17,22 @@ public class LoginUserRequestTest {
         assertThat(request).isNotNull();
 
     }
+
+    @Test
+    void LanguageRequestFildsExistTest() {
+
+        String email = "teste@gmail.com";
+        String senha = "teste15";
+
+        LoginUserRequestDTP request = new LoginUserRequestDTP(
+
+                email,
+                senha
+
+        );
+
+        assertThat(request.email()).isEqualTo(email);
+        assertThat(request.senha()).isEqualTo(senha);
+
+    }
 }

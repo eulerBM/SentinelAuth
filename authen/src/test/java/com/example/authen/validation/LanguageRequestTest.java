@@ -16,4 +16,20 @@ public class LanguageRequestTest {
         assertThat(request).isNotNull();
 
     }
+
+    @Test
+    void LanguageRequestFildsExistTest() {
+
+        String language = "esoanhol";
+
+
+        LanguageRequestDTP request = new LanguageRequestDTP(
+
+                language
+
+        );
+
+        assertThat(request.language()).isEqualTo(language);
+
+    }
 }

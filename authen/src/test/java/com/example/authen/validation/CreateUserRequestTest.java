@@ -23,4 +23,31 @@ public class CreateUserRequestTest {
         assertThat(request).isNotNull();
 
     }
+
+    @Test
+    void CreateUserFildsExistTest() {
+
+        String username = "teste10";
+        String email = "teste@gmail.com";
+        String senha = "teste15";
+        String role = "ADMIN";
+        String language = "português";
+
+        CreateUserRequestDTP request = new CreateUserRequestDTP(
+
+                username,
+                email,
+                senha,
+                role,
+                language
+
+        );
+
+        assertThat(request.username()).isEqualTo(username);
+        assertThat(request.email()).isEqualTo(email);
+        assertThat(request.senha()).isEqualTo(senha);
+        assertThat(request.role()).isEqualTo(role);
+        assertThat(request.language()).isEqualTo(language);
+
+    }
 }
