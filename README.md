@@ -1,4 +1,4 @@
-<img src="readme/foto_api.png" alt="Texto Alternativo">
+<img src="readme/image_api.png" alt="Texto Alternativo">
 
 <h1> Como rodar esse projeto ?</h1>
 

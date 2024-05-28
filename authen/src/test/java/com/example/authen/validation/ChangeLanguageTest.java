@@ -1,10 +1,15 @@
 package com.example.authen.validation;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LanguageRequestTest {
+public class ChangeLanguageTest {
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
     void LanguageRequestExistTest() {
@@ -20,7 +25,7 @@ public class LanguageRequestTest {
     @Test
     void LanguageRequestFildsExistTest() {
 
-        String language = "esoanhol";
+        String language = "espanhol";
 
 
         LanguageRequestDTP request = new LanguageRequestDTP(
@@ -32,4 +37,5 @@ public class LanguageRequestTest {
         assertThat(request.language()).isEqualTo(language);
 
     }
+
 }

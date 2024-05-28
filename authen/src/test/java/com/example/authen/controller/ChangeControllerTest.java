@@ -1,42 +1,58 @@
 package com.example.authen.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
+
+@AutoConfigureMockMvc
+@SpringBootTest
 class ChangeControllerTest {
 
     @Autowired
-    private ChangeController changeController;
-
-
+    private MockMvc mockMvc;
 
     @Test
-    void changePassword() {
+    void ChangePassUrlExistTest() throws Exception {
 
-        assertThat(changeController).isNotNull();
-
+        mockMvc.perform(post("/user/change/v1/password")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
-    void changeUsername() {
+    void ChangeUsernameUrlExistTest() throws Exception {
 
-        assertThat(changeController).isNotNull();
-
+        mockMvc.perform(post("/user/change/v1/username")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
-    void changeRole() {
+    void LanguageRequestUrlExistTest() throws Exception {
 
-        assertThat(changeController).isNotNull();
-
+        mockMvc.perform(post("/user/change/v1/language")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
-    void changeLanguage() {
+    void RoleRequestUrlExistTest() throws Exception {
 
-        assertThat(changeController).isNotNull();
-
+        mockMvc.perform(post("/user/change/v1/role")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isUnauthorized());
     }
+
+
 }

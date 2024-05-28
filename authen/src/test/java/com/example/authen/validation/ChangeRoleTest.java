@@ -1,10 +1,15 @@
 package com.example.authen.validation;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RoleRequestTest {
+public class ChangeRoleTest {
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
     void RoleRequestExistTest() {
@@ -33,4 +38,5 @@ public class RoleRequestTest {
         assertThat(request.permission()).isEqualTo(permission);
 
     }
+
 }
