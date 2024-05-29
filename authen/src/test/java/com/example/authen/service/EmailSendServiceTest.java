@@ -1,28 +1,23 @@
 package com.example.authen.service;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class EmailSendServiceTest {
 
-    @Test
-    void sendCreateAccount() {
-    }
+    @Autowired
+    EmailSendService emailSendService;
 
     @Test
-    void sendUserBanned() {
+    void sendCreateAccountExistTest() {
+
+        assertThat(emailSendService).isNotNull();
+
     }
 
-    @Test
-    void changePassword() {
-    }
-
-    @Test
-    void changeUsername() {
-    }
-
-    @Test
-    void changePermission() {
-    }
 }
