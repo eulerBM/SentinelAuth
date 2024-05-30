@@ -25,8 +25,6 @@ public class ChangePasswordService {
 
         Optional<UsersModel> emailUser = repository.findByEmail(data.getEmail());
 
-
-
         if (emailUser.isEmpty()){
 
             return ResponseEntity.status((HttpStatus.NOT_FOUND)).body("E-mail não encontrado!");
@@ -53,7 +51,7 @@ public class ChangePasswordService {
 
             return ResponseEntity.status((HttpStatus.NOT_FOUND)).body("Senhas novas diferentes!");
 
-        }else {
+        } else {
 
             UsersModel userIns = emailUser.get();
 
@@ -66,6 +64,5 @@ public class ChangePasswordService {
             return ResponseEntity.status((HttpStatus.ACCEPTED)).body("Senha atualizada com sucesso!");
 
         }
-
     }
 }

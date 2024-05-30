@@ -1,7 +1,6 @@
 package com.example.authen.entity;
 
 import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.authen.validation.CreateUserRequestDTP;
 import jakarta.persistence.*;
@@ -81,8 +80,11 @@ public class UsersModel {
 
     @PrePersist
     public void generateIdPublic() {
+
         if (idPublic == null) {
+
             idPublic = UUID.randomUUID();
+
         }
     }
 }

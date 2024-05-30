@@ -14,5 +14,4 @@ public interface UsersRepository extends JpaRepository<UsersModel, Long>{
 
     Optional<UsersModel> findByIdPublic(UUID idPublic);
 
-
 }

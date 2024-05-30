@@ -53,6 +53,5 @@ public class ChangeUsernameService {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario com esse username não existe");
 
         }
-
     }
 }

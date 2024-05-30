@@ -40,6 +40,5 @@ public class ChangeRoleService {
 
             return ResponseEntity.status(HttpStatus.OK).body(msg);
         }
-
     }
 }

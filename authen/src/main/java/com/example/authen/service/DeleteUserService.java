@@ -22,9 +22,7 @@ public class DeleteUserService {
 
             return ResponseEntity.notFound().build();
 
-        }
-
-        else {
+        } else {
 
             repository.deleteById(id);
 

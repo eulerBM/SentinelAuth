@@ -99,5 +99,4 @@ public class LoginService {
         throw new BadCredentialsException("Usuario não existe");
 
     }
-
 }

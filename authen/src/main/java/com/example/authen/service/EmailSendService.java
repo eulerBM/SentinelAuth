@@ -30,7 +30,7 @@ public class EmailSendService {
 
             return "Email enviado";
 
-        }catch (Exception e){
+        } catch (Exception e){
 
             return "Erro ao tentar enviar" + e.getLocalizedMessage();
 
@@ -52,7 +52,7 @@ public class EmailSendService {
 
             return "Email enviado";
 
-        }catch (Exception e){
+        } catch (Exception e){
 
             return "Erro ao tentar enviar" + e.getLocalizedMessage();
 
@@ -70,7 +70,7 @@ public class EmailSendService {
 
             return "Email enviado";
 
-        }catch (Exception e){
+        } catch (Exception e){
 
             return "Erro ao tentar enviar" + e.getLocalizedMessage();
 
@@ -93,7 +93,7 @@ public class EmailSendService {
 
             return "Email enviado";
 
-        }catch (Exception e){
+        } catch (Exception e){
 
             return "Erro ao tentar enviar" + e.getLocalizedMessage();
 
@@ -116,7 +116,7 @@ public class EmailSendService {
 
             return "Email enviado";
 
-        }catch (Exception e){
+        } catch (Exception e){
 
             return "Erro ao tentar enviar"+ e.getLocalizedMessage();
 

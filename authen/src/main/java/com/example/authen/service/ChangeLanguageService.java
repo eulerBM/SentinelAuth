@@ -29,6 +29,7 @@ public class ChangeLanguageService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
 
         }
+
         else {
 
             UsersModel user = userName.get();
