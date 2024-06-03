@@ -23,6 +23,5 @@ public class ConfigRedis {
 
                 .serializeValuesWith(fromSerializer(new GenericJackson2JsonRedisSerializer()));
 
-
     }
 }
