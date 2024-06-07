@@ -19,5 +19,4 @@ class EmailSendServiceTest {
         assertThat(emailSendService).isNotNull();
 
     }
-
 }

@@ -39,5 +39,4 @@ public class LoginUserDTO {
         this.statusAccount = entity.getStatusAccount();
 
     }
-
 }

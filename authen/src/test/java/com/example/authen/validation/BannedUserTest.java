@@ -52,7 +52,6 @@ public class BannedUserTest {
         assertThat(request.reason()).isEqualTo(reason);
 
     }
-
 }
 
 

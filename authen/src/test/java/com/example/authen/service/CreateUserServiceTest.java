@@ -17,5 +17,6 @@ class CreateUserServiceTest {
     void createUserService() {
 
         assertThat(createUserService).isNotNull();
+
     }
 }

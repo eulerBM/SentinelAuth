@@ -19,5 +19,4 @@ class BannedUserServiceTest {
         assertThat(bannedUserService).isNotNull();
 
     }
-
 }

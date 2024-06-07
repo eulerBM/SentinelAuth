@@ -49,5 +49,4 @@ public class ChangeUsernameTest {
         assertThat(request.usernameNovo()).isEqualTo(usernameNovo);
 
     }
-
 }

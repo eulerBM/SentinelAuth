@@ -19,6 +19,4 @@ class GetUserServiceTest {
         assertThat(getUserService).isNotNull();
 
     }
-
-
 }

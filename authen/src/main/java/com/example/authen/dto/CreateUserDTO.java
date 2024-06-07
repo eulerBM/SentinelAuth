@@ -39,5 +39,4 @@ public class CreateUserDTO {
         this.statusAccount = entity.getStatusAccount();
 
     }
-
 }

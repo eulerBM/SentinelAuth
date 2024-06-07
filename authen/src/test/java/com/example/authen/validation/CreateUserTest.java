@@ -60,5 +60,4 @@ public class CreateUserTest {
         assertThat(request.language()).isEqualTo(language);
 
     }
-
 }

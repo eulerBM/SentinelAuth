@@ -57,5 +57,4 @@ public class ChangePasswordTest {
         assertThat(request.senhaNew2()).isEqualTo(senhaNew2);
 
     }
-
 }

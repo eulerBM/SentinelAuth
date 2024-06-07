@@ -39,6 +39,5 @@ public class InfosUserDTO {
         this.statusAccount = entity.getStatusAccount();
 
     }
-
 }
 

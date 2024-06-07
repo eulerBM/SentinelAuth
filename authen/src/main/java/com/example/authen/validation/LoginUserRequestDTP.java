@@ -18,7 +18,5 @@ public record LoginUserRequestDTP(
         @Size(min = 1, max = 100, message = "O tamanho do username deve estar entre 1 e 100 caracteres")
         String senha
 ){
-
-
 }
 

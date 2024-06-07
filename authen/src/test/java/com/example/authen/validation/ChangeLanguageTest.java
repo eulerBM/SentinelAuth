@@ -37,5 +37,4 @@ public class ChangeLanguageTest {
         assertThat(request.language()).isEqualTo(language);
 
     }
-
 }

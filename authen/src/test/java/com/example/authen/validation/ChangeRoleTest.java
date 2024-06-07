@@ -38,5 +38,4 @@ public class ChangeRoleTest {
         assertThat(request.permission()).isEqualTo(permission);
 
     }
-
 }

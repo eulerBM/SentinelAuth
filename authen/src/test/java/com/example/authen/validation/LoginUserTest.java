@@ -40,5 +40,4 @@ public class LoginUserTest {
         assertThat(request.senha()).isEqualTo(senha);
 
     }
-
 }

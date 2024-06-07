@@ -27,5 +27,4 @@ public class BannedUserDTO {
         this.message = String.format("Usuario %s com sucesso", entity.getStatusAccount().getAccountStatus());
 
     }
-
 }

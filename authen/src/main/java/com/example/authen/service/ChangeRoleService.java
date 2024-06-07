@@ -39,6 +39,7 @@ public class ChangeRoleService {
             String msg = String.format("Role do %s alterada para %s", user.getUsername(), roleRequestDTP.permission());
 
             return ResponseEntity.status(HttpStatus.OK).body(msg);
+
         }
     }
 }

@@ -33,6 +33,4 @@ public record ChangePassRequestDTP(
         String senhaNew2
 
 ){
-
-
 }

@@ -53,6 +53,4 @@ class ChangeControllerTest {
                         .content("{}"))
                 .andExpect(status().isUnauthorized());
     }
-
-
 }

@@ -75,5 +75,6 @@ public class SpringSecurityConfig {
     @Bean
     public JwtDecoder jwtDecoder(){
         return NimbusJwtDecoder.withPublicKey(publicKey).build();
+
     }
 }
