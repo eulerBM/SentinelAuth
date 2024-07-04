@@ -7,8 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AuthenApplication {
 
 	public static void main(String[] args) {
+
+
 		
 		SpringApplication.run(AuthenApplication.class, args);
+
 
 	}
 }
