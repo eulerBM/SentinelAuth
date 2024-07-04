@@ -8,10 +8,7 @@ public class AuthenApplication {
 
 	public static void main(String[] args) {
 
-
-		
 		SpringApplication.run(AuthenApplication.class, args);
-
 
 	}
 }

@@ -17,6 +17,7 @@ public record LoginUserRequestDTP(
         @NotBlank(message = "A senha não pode ser em branco.")
         @Size(min = 1, max = 100, message = "O tamanho do username deve estar entre 1 e 100 caracteres")
         String senha
+
 ){
 }
 
