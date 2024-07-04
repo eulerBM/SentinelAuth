@@ -22,8 +22,3 @@ Executar o Projeto
 
     Após atualizar as dependências, execute o projeto. Você pode fazer isso diretamente na sua IDE, procurando e executando a classe principal do aplicativo ou usando os comandos fornecidos pela IDE.
 
-Docker 🐋
-
-
-
-    Fazendo...
