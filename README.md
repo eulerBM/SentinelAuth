@@ -2,11 +2,9 @@
 
 <h1> Como rodar esse projeto ?</h1>
 
-
 Computador 💻
 
 Clone por HTTPS ou SSH ⤵️
-
 
     HTTPS = https://github.com/eulerBM/SentinelAuth.git
 
