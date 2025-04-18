@@ -10,6 +10,7 @@ Clone por HTTPS ou SSH ⤵️
 
     SSH = git@github.com:eulerBM/SentinelAuth.git
 
+
 Abrir o Projeto
 
     Abra o projeto usando sua IDE favorita, recomendamos o IntelliJ IDEA para uma melhor experiência de desenvolvimento.
